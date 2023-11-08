@@ -41,6 +41,14 @@ async function run() {
             res.send(result)
         })
 
+        // app.get('/book/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     const query = { _id: new ObjectId(id) };
+        //     const book = await toyConnection.findOne(query);
+        //     res.send(book)
+        // });
+
+
 
         app.post('/book', async(req, res) => {
             const newBook = req.body;
