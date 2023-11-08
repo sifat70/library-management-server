@@ -5,14 +5,21 @@ require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const port = process.env.PORT || 5000;
 
+
+
+app.use(
+    cors({
+        origin: [
+            'https://ome-library.web.app',
+            'https://ome-library.firebaseapp.com'],
+        credentials: true,
+    }),
+)
+
+
 // middleware
 app.use(cors());
 app.use(express.json())
-
-
-
-
-
 
 
 
@@ -39,7 +46,7 @@ async function run() {
         const bookCollection = client.db('bookDb').collection('book');
 
 
-        app.get('/book',async(req, res) => {
+        app.get('/book', async (req, res) => {
             const cursor = bookCollection.find();
             const result = await cursor.toArray();
             res.send(result)
@@ -54,7 +61,7 @@ async function run() {
 
 
 
-        app.post('/book', async(req, res) => {
+        app.post('/book', async (req, res) => {
             const newBook = req.body;
             console.log(newBook);
             const result = await bookCollection.insertOne(newBook);
